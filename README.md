@@ -1,13 +1,7 @@
 # IPK
-test dokumentace.TH FOO 1 "MARCH 1995" Linux "User Manuals"
+## Client
+aplikace pro přenos souborů, která komunikuje pomocí HTTP a využívá jednoduché RESTful API
 
-.SH NAME 
-Client \- aplikace pro přenos souborů, která komunikuje pomocí HTTP a využívá jednoduché RESTful API
+### SYNOPSIS
+`ftrest COMMAND REMOTE-PATH [LOCAL-PATH]`
 
-.SH SYNOPSIS
-.B ftrest 
-.I COMMAND
-.I REMOTE-PATH
-.B [
-.I LOCAL-PATH
-.B ]
