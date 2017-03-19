@@ -1,14 +1,14 @@
 # IPK
-## Client
+## Client - ftrest 
  aplikace pro přenos souborů, která komunikuje pomocí HTTP a využívá jednoduché RESTful API
 
 ### SYNOPSIS
 `ftrest COMMAND REMOTE-PATH [LOCAL-PATH]`
 
 ### DESCRIPTION
-Aplikace klienta začíná komunikaci se serverem, který již musí být spuštěný. V HTTP hlavičce posílá žádost, který příkaz má server vykonat. U příkazu `PUT`, aplikace zavolá funkci `command_put`, před odesláním zprávy serveru. Funkce uloží data souboru, který se má odeslat, do proměnné `file_buffer`. Obsah proměnné se uloží na konec zprávy serveru.
+Aplikace klienta začíná komunikaci se serverem, který již musí být spuštěný. V HTTP hlavičce posílá žádost, který příkaz má server vykonat. U příkazu `PUT`, aplikace zavolá funkci `command_put`, ještě před odesláním zprávy serveru. Funkce uloží data souboru, který se má odeslat, do proměnné `file_buffer`. Obsah proměnné se uloží na konec zprávy serveru.
 
-Odpověď ze serveru se zanalyzuje ve funkci `parse`.  Funkce ověří, že hlavička obsahuje zprávu `HTTP/1.1 200 OK`. V případě, že neobsahuje, funkce vypíše do`stderr` obsah těla odpovědi ze serveru, který obsahuje podrobný popis chyby a ukončí program.
+Odpověď ze serveru se zanalyzuje ve funkci `parse`.  Funkce ověří, že hlavička obsahuje zprávu `HTTP/1.1 200 OK`. V případě, že neobsahuje, funkce vypíše do`stderr` obsah těla odpovědi serveru. Tělo obsahuje podrobný popis chyby a ukončí program.
 
 V případě operace 
 - `GET` - program zavolá funkci `command_get`, která uloží požadovaný soubor
@@ -42,14 +42,17 @@ V případě operace
 	- pro ostatní chyby.
   
   
-## Server
+## Server - ftrestd 
  aplikace pro přenos souborů, která komunikuje pomocí HTTP a využívá jednoduché RESTful API
 
 ### SYNOPSIS
 `ftrestd [-r ROOT-FOLDER] [-p PORT]`
 
 ### DESCRIPTION
-asdf
+Server čeká na zprávu od klienta. Jakmile ji obdrží, pošle ji ke zpracování do funkce `parse`. Funkce žádost zpracuje. První řádek HTTP hlavičky rozdělí na cestu k souboru/adresáři a na příkaz, podle kterého zavolá požadovanou funkci `command_XYZ`, kde XYZ reprezentuje příkaz ze zprávy.
+
+Každá z funkcí `command_XYZ` vrací svoje výsledky i výpisy chybových stavů v proměnné `file_buffer`. `file_buffer` se ukládá na konec odpovědi pro klienta. Hlavička odpovědi závisí, zda některá z funkcí `command_XYZ` vrátila jinou hodnotu než `OK`.
+
 
 ### OPTIONS
 - \- r
