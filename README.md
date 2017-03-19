@@ -6,8 +6,10 @@
 `ftrest COMMAND REMOTE-PATH [LOCAL-PATH]`
 
 ### DESCRIPTION
-Aplikace klienta začíná komunikaci se serverem, který již musí být spuštěný. V HTTP hlavičce posílá žádost, který příkaz má server vykonat. Příkaz
+Aplikace klienta začíná komunikaci se serverem, který již musí být spuštěný. V HTTP hlavičce posílá žádost, který příkaz má server vykonat. U příkazu `PUT`, aplikace zavolá funkci `command_put`, před odesláním zprávy serveru. Funkce uloží data souboru, který se má odeslat, do proměnné `file_buffer`. Obsah proměnné se uloží na konec zprávy serveru.
+
 Odpověď ze serveru se zanalyzuje ve funkci `parse`.  Funkce ověří, že hlavička obsahuje zprávu `HTTP/1.1 200 OK`. V případě, že neobsahuje, funkce vypíše do`stderr` obsah těla odpovědi ze serveru, který obsahuje podrobný popis chyby a ukončí program.
+
 V případě operace 
 - `GET` - program zavolá funkci `command_get`, která uloží požadovaný soubor
 - `LST` - program vypíše data z těla odpovědi serveru, která obsahují informace o obsahu adresáře na serveru
