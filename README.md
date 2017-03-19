@@ -6,15 +6,20 @@
 `ftrest COMMAND REMOTE-PATH [LOCAL-PATH]`
 
 ### DESCRIPTION
-asdf
+Aplikace klienta začíná komunikaci se serverem, který již musí být spuštěný. V HTTP hlavičce posílá žádost, který příkaz má server vykonat. Příkaz
+Odpověď ze serveru se zanalyzuje ve funkci `parse`.  Funkce ověří, že hlavička obsahuje zprávu `HTTP/1.1 200 OK`. V případě, že neobsahuje, funkce vypíše do`stderr` obsah těla odpovědi ze serveru, který obsahuje podrobný popis chyby a ukončí program.
+V případě operace 
+- `GET` - program zavolá funkci `command_get`, která uloží požadovaný soubor
+- `LST` - program vypíše data z těla odpovědi serveru, která obsahují informace o obsahu adresáře na serveru
+
 
 ### OPTIONS
 - COMMAND 
-  - je příkaz 
+  - příkaz co se má provést na serveru
 - REMOTE-PATH
-  - je cesta k souboru nebo adresáři na serveru
+  - cesta k souboru nebo adresáři na serveru
 - LOCAL-PATH
-  - je cesta v lokální souborovém systému, povinné pro put
+  - cesta v lokální souborovém systému, povinné pro put
   
 ### DIAGNOSTICS 
 - "Not a directory." 
